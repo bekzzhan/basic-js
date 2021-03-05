@@ -1,25 +1,35 @@
-const CustomError = require("../extensions/custom-error");
-
+/* jshint esversion: 6 */
 const chainMaker = {
+  'result': [],
   getLength() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    return this.result.length;
   },
   addLink(value) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    if (value !== undefined){
+      this.result.push(`( ${String(value)} )~~`);
+    } else {
+      this.result.push(`( )~~`);
+    }
+    return this;
   },
   removeLink(position) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    if (typeof(position) !== "number" && position % 1 !== 0) {
+      this.result.length = 0;
+      throw Error;
+    } else {
+      this.result.splice(position - 1, 1);
+      return this;
+    }
   },
   reverseChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    this.result.reverse();
+    return this;
   },
   finishChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    const resultStr = this.result.join('');
+    this.result.length = 0;
+    const out = resultStr.slice(0, resultStr.length - 2);
+    return out;
   }
 };
 
